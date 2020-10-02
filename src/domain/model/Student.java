@@ -1,4 +1,4 @@
-package model;
+package domain.model;
 
 public class Student {
     private String naam, voornaam;

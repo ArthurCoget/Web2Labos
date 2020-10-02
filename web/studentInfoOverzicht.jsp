@@ -1,26 +1,21 @@
-<%@ page import="model.Student" %>
+<%@ page import="domain.model.Student" %>
 <%@ page import="java.util.ArrayList" %>
-<%
-    Student greetje = new Student("Jongen", "Greetje", "Toegepaste Informatica", 23);
-    Student kristien = new Student("Melaerts", "Kristien", "Chemie", 21);
-    Student elke = new Student("Steegmans", "Elke", "Vroedkunde", 16);
-    Student jan = new Student("Van Hee", "Jan", "Verpleegkunde", 18);
-
-    ArrayList<Student> students = new ArrayList<>();
-    students.add(greetje);
-    students.add(kristien);
-    students.add(elke);
-    students.add(jan);
-
-%>
+<%@ page import="domain.db.StudentDB" %>
+<% StudentDB studentDB = new StudentDB(); %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Student Info: Overzicht</title>
+    <title>domain.model.Student Info: Overzicht</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
+<nav>
+    <ul>
+        <li><a href="index.html">home</a></li>
+        <li><a href="studentInfoOverzicht.jsp">tabel</a></li>
+        <li><a href="zoek.jsp">zoeken</a></li>
+    </ul>
+</nav>
 <table>
     <thead>
     <tr>
@@ -32,16 +27,11 @@
     </thead>
     <tbody>
     <tr >
-    <% for (Student a: students) {
-        String naam = a.getNaam();
-        String voornaam = a.getVoornaam();
-        int leeftijd = a.getLeeftijd();
-        String studierichting = a.getStudierichting();
-        %>
-        <td > <%= naam %> </td >
-        <td > <%= voornaam%> </td >
-        <td > <%= leeftijd %> </td >
-        <td ><%= studierichting %> </td >
+    <% for (Student a: studentDB.getStudentslijst()) {%>
+        <td > <%= a.getNaam() %> </td >
+        <td > <%= a.getVoornaam()%> </td >
+        <td > <%= a.getLeeftijd() %> </td >
+        <td ><%= a.getStudierichting() %> </td >
     </tr >
     <% } %>
     </tbody >
