@@ -12,6 +12,6 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+    <p id="antwoord">Het antwoord is: <%= request.getAttribute("aantal")%> keer.</p>
   </body>
 </html>
