@@ -9,10 +9,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Niet Gevonden | Studenten Overzicht</title>
+    <title>Niet gevonden</title>
 </head>
 <body>
-<p>Helaas, de student waarnaar je vraagt is niet gevonden.</p>
+<p id="foutboodschap">Helaas, de student waarnaar je vraagt is niet gevonden.</p>
 
 </body>
 </html>

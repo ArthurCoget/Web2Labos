@@ -34,7 +34,7 @@ public class StudentInformatieTest {
 
 	@Test
 	public void test_formulier_Steegmans_elke_geeft_resultaat() {
-		driver.get(url+"zoek.jsp");
+		driver.get(url+"zoekForm.jsp");
 		fillOutForm("Steegmans", "Elke");
 		String resultaat = driver.findElement(By.tagName("p")).getText();
 		assertEquals("Je vroeg naar volgende gegevens: Steegmans Elke (16 jaar): Vroedkunde", resultaat);
@@ -67,7 +67,7 @@ public class StudentInformatieTest {
 
 	@Test
 	public void test_formulier_Kemme_Mieke_geeft_geen_resultaat() {
-		driver.get(url + "zoek.jsp");
+		driver.get(url + "zoekForm.jsp");
 		fillOutForm("Kemme", "Mieke");
 		String resultaat = driver.findElement(By.tagName("p")).getText();
 		assertEquals("Helaas, de student waarnaar je vraagt is niet gevonden.", resultaat);

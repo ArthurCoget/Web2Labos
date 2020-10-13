@@ -10,9 +10,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gevonden | Studenten Overzicht</title>
+    <title>Gevonden</title>
 </head>
 <body>
-<p>Je vroeg naar volgende gegevens: <%= gevonden %></p>
+<p id="boodschap">Je vroeg naar volgende gegevens: <%= gevonden %></p>
 </body>
 </html>

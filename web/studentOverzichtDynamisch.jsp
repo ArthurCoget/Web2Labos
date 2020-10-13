@@ -1,7 +1,7 @@
 <%@ page import="domain.model.Student" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="domain.db.StudentDB" %>
-<% StudentDB studentDB = new StudentDB(); %>
+<% ArrayList<Student> lijst = (ArrayList<Student>)request.getAttribute("database"); %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,7 +17,9 @@
         <li><a href="studentForm.jsp">voegtoe</a></li>
     </ul>
 </nav>
+<h2>Overzicht studenten</h2>
 <table>
+
     <thead>
     <tr>
         <th>Naam</th>
@@ -28,7 +30,7 @@
     </thead>
     <tbody>
     <tr >
-    <%for (Student a: studentDB.getStudentslijst()) {%>
+        <%for (Student a: lijst) {%>
         <td > <%= a.getNaam() %> </td >
         <td > <%= a.getVoornaam()%> </td >
         <td > <%= a.getLeeftijd() %> </td >

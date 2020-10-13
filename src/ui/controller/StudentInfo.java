@@ -1,4 +1,4 @@
-package ui.view;
+package ui.controller;
 
 import domain.db.StudentDB;
 import domain.model.Student;
@@ -15,6 +15,27 @@ import java.io.IOException;
 public class StudentInfo extends HttpServlet {
 
     private final StudentDB studentDB = new StudentDB();
+
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+        String naamFromParameter = request.getParameter("naam");
+        String vnaamFromParameter = request.getParameter("vnaam");
+        String leeftijdFromParameter = request.getParameter("leeftijd");
+        String studieRichtingFromParameter = request.getParameter("studierichting");
+
+        if (naamFromParameter.trim().isEmpty() || vnaamFromParameter.trim().isEmpty() || leeftijdFromParameter.trim().isEmpty() || studieRichtingFromParameter.trim().isEmpty()){
+            request.setAttribute("nietok", "U vulde niet alle velden in");
+            RequestDispatcher view = request.getRequestDispatcher("studentForm.jsp");
+            view.forward(request, response);
+        }else {
+            studentDB.voegStudentToe(new Student(naamFromParameter, vnaamFromParameter, studieRichtingFromParameter, Integer.parseInt(leeftijdFromParameter)));
+            request.setAttribute("database", studentDB.getStudentslijst());
+            RequestDispatcher view = request.getRequestDispatcher("studentOverzichtDynamisch.jsp");
+            view.forward(request, response);
+        }
+
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -49,7 +70,5 @@ public class StudentInfo extends HttpServlet {
                 }
             }
         }
-
-
     }
 }

@@ -10,13 +10,13 @@ public class StudentDB {
 
     public StudentDB() {
         students = new ArrayList<>();
-        this.voegToe(new Student("Jongen", "Greetje", "Toegepaste Informatica", 23));
-        this.voegToe(new Student("Melaerts", "Kristien", "Chemie", 21));
-        this.voegToe(new Student("Steegmans", "Elke", "Vroedkunde", 16));
-        this.voegToe(new Student("Van Hee", "Jan", "Verpleegkunde", 18));
+        this.voegStudentToe(new Student("Jongen", "Greetje", "Toegepaste Informatica", 23));
+        this.voegStudentToe(new Student("Melaerts", "Kristien", "Chemie", 21));
+        this.voegStudentToe(new Student("Steegmans", "Elke", "Vroedkunde", 16));
+        this.voegStudentToe(new Student("Van Hee", "Jan", "Verpleegkunde", 18));
     }
 
-    public void voegToe(Student student) {
+    public void voegStudentToe(Student student) {
         if (student == null) {
             throw new IllegalArgumentException("Student mag niet leeg zijn");
         }
