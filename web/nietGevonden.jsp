@@ -12,6 +12,14 @@
     <title>Niet gevonden</title>
 </head>
 <body>
+<nav>
+    <ul>
+        <li><a href="index.jsp">home</a></li>
+        <li><a href="StudentInfo?command=overview">tabel</a></li>
+        <li><a href="zoekForm.jsp">zoeken</a></li>
+        <li><a href="studentForm.jsp">toevoegen</a></li>
+    </ul>
+</nav>
 <p id="foutboodschap">Helaas, de student waarnaar je vraagt is niet gevonden.</p>
 
 </body>

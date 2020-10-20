@@ -18,6 +18,55 @@ public class StudentInfo extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        processRequest(request, response);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String command = request.getParameter("command");
+        String destination;
+
+        if (command == null) {
+            command = "";
+        }
+        switch (command) {
+            case "Zoeken":
+                destination = zoek(request, response);
+                break;
+            case "overview":
+                destination = overview(request, response);
+                break;
+            case "voegtoe":
+                destination = voegtoe(request, response);
+                break;
+            case "verwijder":
+                destination = verwijder(request, response);
+                break;
+            case "verwijderBevestigd":
+                destination = "verwijder.jsp";
+                break;
+            default:
+                destination = "index.jsp";
+        }
+        request.getRequestDispatcher(destination).forward(request, response);
+    }
+
+    private String verwijder(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getParameter("verwijder") != null) {
+            Student student = studentDB.vindStudent(request.getParameter("naam"), request.getParameter("voornaam"));
+            studentDB.verwijderStudent(student);
+            return overview(request, response);
+        }else {
+            return "index.jsp";
+        }
+
+    }
+
+    private String voegtoe(HttpServletRequest request, HttpServletResponse response) {
 
         String naamFromParameter = request.getParameter("naam");
         String vnaamFromParameter = request.getParameter("vnaam");
@@ -26,49 +75,39 @@ public class StudentInfo extends HttpServlet {
 
         if (naamFromParameter.trim().isEmpty() || vnaamFromParameter.trim().isEmpty() || leeftijdFromParameter.trim().isEmpty() || studieRichtingFromParameter.trim().isEmpty()){
             request.setAttribute("nietok", "U vulde niet alle velden in");
-            RequestDispatcher view = request.getRequestDispatcher("studentForm.jsp");
-            view.forward(request, response);
+            return "studentForm.jsp?command=voegtoe";
         }else {
             studentDB.voegStudentToe(new Student(naamFromParameter, vnaamFromParameter, studieRichtingFromParameter, Integer.parseInt(leeftijdFromParameter)));
             request.setAttribute("database", studentDB.getStudentslijst());
-            RequestDispatcher view = request.getRequestDispatcher("studentOverzichtDynamisch.jsp");
-            view.forward(request, response);
+            return overview(request, response);
         }
-
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private String overview(HttpServletRequest request, HttpServletResponse response) {
+        request.setAttribute("database", studentDB.getStudentslijst());
+        return "studentOverzichtDynamisch.jsp";
+    }
 
-        String guessVoornaamFromParameter = request.getParameter("voornaam");
-        String guessNaamFromParameter = request.getParameter("naam");
+    private String zoek(HttpServletRequest request, HttpServletResponse response) {
 
-        if (guessNaamFromParameter == null || guessNaamFromParameter.trim().isEmpty()) {
-            if (guessVoornaamFromParameter == null || guessVoornaamFromParameter.trim().isEmpty()) {
-                RequestDispatcher view = request.getRequestDispatcher("nietGevonden.jsp");
-                view.forward(request, response);
-            }else {
-                RequestDispatcher view = request.getRequestDispatcher("nietGevonden.jsp");
-                view.forward(request, response);
-            }
+        String naamFromParameter = request.getParameter("naam");
+        String voornaamFromParameter = request.getParameter("voornaam");
+
+        if (naamFromParameter.trim().isEmpty() || voornaamFromParameter.trim().isEmpty()) {
+            return "nietGevonden.jsp";
+        }
+        if (studentDB.vindStudent(naamFromParameter, voornaamFromParameter) == null) {
+            return "nietGevonden.jsp";
         }else {
-            if (guessVoornaamFromParameter == null || guessVoornaamFromParameter.trim().isEmpty()) {
-                RequestDispatcher view = request.getRequestDispatcher("nietGevonden.jsp");
-                view.forward(request, response);
-            } else {
-                if (studentDB.vindStudent(guessNaamFromParameter, guessVoornaamFromParameter) == null) {
-                    RequestDispatcher view = request.getRequestDispatcher("nietGevonden.jsp");
-                    view.forward(request, response);
-                } else {
-                    Student student = studentDB.vindStudent(guessNaamFromParameter, guessVoornaamFromParameter);
-                    request.setAttribute("Naam", student.getNaam());
-                    request.setAttribute("Voornaam", student.getVoornaam());
-                    request.setAttribute("Leeftijd", student.getLeeftijd());
-                    request.setAttribute("Studierichting", student.getStudierichting());
 
-                    RequestDispatcher view = request.getRequestDispatcher("gevonden.jsp");
-                    view.forward(request, response);
-                }
-            }
+            Student student = studentDB.vindStudent(naamFromParameter, voornaamFromParameter);
+
+            request.setAttribute("Naam", student.getNaam());
+            request.setAttribute("Voornaam", student.getVoornaam());
+            request.setAttribute("Leeftijd", student.getLeeftijd());
+            request.setAttribute("Studierichting", student.getStudierichting());
+
+            return "gevonden.jsp";
         }
     }
 }

@@ -14,17 +14,17 @@
 <body>
 <nav>
     <ul>
-        <li><a href="index.html">home</a></li>
-        <li><a href="studentInfoOverzicht.jsp">tabel</a></li>
+        <li><a href="index.jsp">home</a></li>
+        <li><a href="StudentInfo?command=overview">tabel</a></li>
         <li><a href="zoekForm.jsp">zoeken</a></li>
-        <li><a href="studentForm.jsp">voegtoe</a></li>
+        <li><a href="studentForm.jsp">toevoegen</a></li>
     </ul>
 </nav>
 <p>Geef hier de voornaam en de naam van de gezochte student:</p>
 <form action="StudentInfo" method="get">
     <p><label for="naam">Naam: <input type="text" id="naam" name="naam" placeholder="Naam..."></label></p>
     <p><label for="voornaam">Voornaam:<input type="text" id="voornaam" name="voornaam" placeholder="Voornaam..."></label></p>
-    <p><input type="submit"  id="zoek" value="Zoeken"></p>
+    <p><input type="submit" name="command"  id="zoek" value="Zoeken"></p>
 
 </form>
 

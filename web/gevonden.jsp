@@ -13,6 +13,14 @@
     <title>Gevonden</title>
 </head>
 <body>
+<nav>
+    <ul>
+        <li><a href="index.jsp">home</a></li>
+        <li><a href="StudentInfo?command=overview">tabel</a></li>
+        <li><a href="zoekForm.jsp">zoeken</a></li>
+        <li><a href="studentForm.jsp">toevoegen</a></li>
+    </ul>
+</nav>
 <p id="boodschap">Je vroeg naar volgende gegevens: <%= gevonden %></p>
 </body>
 </html>

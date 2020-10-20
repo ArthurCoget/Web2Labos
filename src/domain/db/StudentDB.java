@@ -42,4 +42,11 @@ public class StudentDB {
         }
         return null;
     }
+
+    public void verwijderStudent(Student student) {
+        if (student == null) {
+            throw new IllegalArgumentException("Geef een echte student in");
+        }
+        students.removeIf(a -> a == student);
+    }
 }

@@ -15,14 +15,14 @@
 <body>
 <nav>
     <ul>
-        <li><a href="index.html">home</a></li>
-        <li><a href="studentInfoOverzicht.jsp">tabel</a></li>
+        <li><a href="index.jsp">home</a></li>
+        <li><a href="StudentInfo?command=overview">tabel</a></li>
         <li><a href="zoekForm.jsp">zoeken</a></li>
-        <li><a href="studentForm.jsp">voegtoe</a></li>
+        <li><a href="studentForm.jsp">toevoegen</a></li>
     </ul>
 </nav>
-<h2>Voeg een student toe</h2>
-<form action="StudentInfo" method="post" novalidate>
+<h1>Voeg een student toe</h1>
+<form action="StudentInfo?command=voegtoe" method="post" novalidate>
     <% if (request.getAttribute("nietok") != null ){%>
         <p id="message"><%= request.getAttribute("nietok")%></p>
     <%}%>
