@@ -5,21 +5,19 @@
   Time: 12:58
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Zoeken | Studenten Overzicht</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<nav>
-    <ul>
-        <li><a href="index.jsp">home</a></li>
-        <li><a href="StudentInfo?command=overview">tabel</a></li>
-        <li><a href="zoekForm.jsp">zoeken</a></li>
-        <li><a href="studentForm.jsp">toevoegen</a></li>
-    </ul>
-</nav>
+<jsp:include page="header.jsp">
+    <jsp:param name="search" value="currentPage"/>
+    <jsp:param name="overview" value=""/>
+    <jsp:param name="home" value=""/>
+    <jsp:param name="form" value=""/>
+</jsp:include>
 <p>Geef hier de voornaam en de naam van de gezochte student:</p>
 <form action="StudentInfo" method="get">
     <p><label for="naam">Naam: <input type="text" id="naam" name="naam" placeholder="Naam..."></label></p>
