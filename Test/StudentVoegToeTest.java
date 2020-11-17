@@ -13,14 +13,14 @@ import static org.junit.Assert.assertTrue;
 
 public class StudentVoegToeTest {
 
-	private static final String url = "http://localhost:8080/";
+	private static final String url = "http://localhost:8080/r0753230_ServerSideValidation_war_exploded/";
 	private WebDriver driver;
 
 
 	@Before
 	public void setUp() throws Exception {
 		// PAS DIT AAN NAAR JE EIGEN CHROME OF GECKODRIVER
-		System.setProperty("webdriver.chrome.driver", "D:\\\\Ucll 2020-2021\\\\Webontwikkeling 2\\\\ChromeDriver + Selenium\\\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "D:\\Ucll 2020-2021\\Webontwikkeling 2\\ChromeDriver + Selenium + jstl\\chromedriver.exe");
 		driver = new ChromeDriver();
 
 	}
@@ -35,7 +35,7 @@ public class StudentVoegToeTest {
 		driver.get(url + "studentForm.jsp");
 		voegStudentToe("", "", 0, "");
 		assertEquals("Voeg een student toe", driver.getTitle());
-		assertEquals("Voeg een student toe", driver.findElement(By.tagName("h2")).getText());
+		assertEquals("Voeg een student toe", driver.findElement(By.tagName("h1")).getText());
 		assertEquals("U vulde niet alle velden in",driver.findElement(By.id("message")).getText());
 	}
 

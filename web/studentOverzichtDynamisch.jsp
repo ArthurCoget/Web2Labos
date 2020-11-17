@@ -9,7 +9,7 @@
 <jsp:include page="header.jsp">
     <jsp:param name="title" value="overview"/>
 </jsp:include>
-<h2>Overzicht studenten</h2>
+<h1>Overzicht studenten</h1>
 <table>
 
     <thead>

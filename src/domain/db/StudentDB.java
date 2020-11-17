@@ -10,19 +10,50 @@ public class StudentDB {
 
     public StudentDB() {
         students = new ArrayList<>();
-        this.voegStudentToe(new Student("Jongen", "Greetje", "Toegepaste Informatica", 23));
-        this.voegStudentToe(new Student("Melaerts", "Kristien", "Chemie", 21));
-        this.voegStudentToe(new Student("Steegmans", "Elke", "Vroedkunde", 16));
-        this.voegStudentToe(new Student("Van Hee", "Jan", "Verpleegkunde", 18));
+
+        Student jongen = new Student();
+        jongen.setNaam("Jongen");
+        jongen.setVoornaam("Greetje");
+        jongen.setStudierichting("Toegepaste Informatica");
+        jongen.setLeeftijd("23");
+
+        voegStudentToe(jongen);
+
+        Student melearts = new Student();
+        melearts.setNaam("Melaerts");
+        melearts.setVoornaam("Kristien");
+        melearts.setStudierichting("Chemie");
+        melearts.setLeeftijd("21");
+
+        voegStudentToe(melearts);
+
+        Student steegmans = new Student();
+        steegmans.setNaam("Steegmans");
+        steegmans.setVoornaam("Elke");
+        steegmans.setLeeftijd("16");
+        steegmans.setStudierichting("Vroedkunde");
+
+        voegStudentToe(steegmans);
+
+        Student vanHee = new Student();
+        vanHee.setNaam("Van Hee");
+        vanHee.setVoornaam("Jan");
+        vanHee.setStudierichting("Verpleegkunde");
+        vanHee.setLeeftijd("18");
+
+        voegStudentToe(vanHee);
     }
 
     public void voegStudentToe(Student student) {
         if (student == null) {
             throw new IllegalArgumentException("Student mag niet leeg zijn");
         }
-        else {
-            students.add(student);
+        for (Student a : students) {
+            if (a.getVoornaam().equals(student.getVoornaam()) && a.getNaam().equals(student.getNaam())) {
+                throw new IllegalArgumentException("Deze student bestaat al");
+            }
         }
+        students.add(student);
     }
     public List<Student> getStudentslijst() {
         return students;

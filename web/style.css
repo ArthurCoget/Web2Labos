@@ -17,11 +17,8 @@ th {
 td, th {
     padding: 1em;
 }
-.currentPage{
-    background-color: green;
-}
-p{
-    background-color: yellow;
+.currentPage a{
+    background-color: silver;
 }
 
 @media screen and (max-width: 600px) {

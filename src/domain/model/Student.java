@@ -3,13 +3,10 @@ package domain.model;
 public class Student {
     private String naam, voornaam;
     private String studierichting;
-    private int leeftijd;
+    private String leeftijd;
 
-    public Student(String naam, String voornaam, String studierichting, int leeftijd) {
-        setNaam(naam);
-        setVoornaam(voornaam);
-        setStudierichting(studierichting);
-        setLeeftijd(leeftijd);
+    public Student() {
+
     }
 
     public static boolean isValidString(String input) {
@@ -21,9 +18,16 @@ public class Student {
     }
 
     public void setNaam(String naam) {
-        if (isValidString(naam))
+        if (naam == null || naam.trim().isEmpty()) {
+            throw new IllegalArgumentException("Vul een naam in!");
+        }
+        try {
+            Double.parseDouble(naam);
+            throw new IllegalArgumentException("This is a number not a name!");
+        } catch (NumberFormatException exc) {
             this.naam = naam;
-        else throw new IllegalArgumentException("No valid name");
+        }
+
     }
 
     public String getVoornaam() {
@@ -31,9 +35,15 @@ public class Student {
     }
 
     public void setVoornaam(String voornaam) {
-        if (isValidString(voornaam))
+        if (voornaam == null || voornaam.trim().isEmpty()) {
+            throw new IllegalArgumentException("Vul een voornaam in!");
+        }
+        try {
+            Double.parseDouble(voornaam);
+            throw new IllegalArgumentException("This is a number not a voorname!");
+        } catch (NumberFormatException exc) {
             this.voornaam = voornaam;
-        else throw new IllegalArgumentException("No valid first name");
+        }
     }
 
     public String getStudierichting() {
@@ -41,12 +51,18 @@ public class Student {
     }
 
     public void setStudierichting(String studierichting) {
-        if (isValidString(studierichting))
+        if (studierichting == null || studierichting.trim().isEmpty()) {
+            throw new IllegalArgumentException("Vul een studierichting in!");
+        }
+        try {
+            Double.parseDouble(studierichting);
+            throw new IllegalArgumentException("This is a number not a studierichting!");
+        } catch (NumberFormatException exc) {
             this.studierichting = studierichting;
-        else throw new IllegalArgumentException("No valid studierichting");
+        }
     }
 
-    public int getLeeftijd() {
+    public String getLeeftijd() {
         return leeftijd;
     }
 
@@ -54,9 +70,16 @@ public class Student {
         return leeftijd > 0;
     }
 
-    public void setLeeftijd(int leeftijd) {
-        if (isValidLeeftijd(leeftijd))
+    public void setLeeftijd(String leeftijd) {
+        if (leeftijd == null || leeftijd.trim().isEmpty()) {
+            throw new IllegalArgumentException("Vul een leeftijd in!");
+        }
+        try {
+            Double.parseDouble(leeftijd);
             this.leeftijd = leeftijd;
-        else throw new IllegalArgumentException("No valid leeftijd");
+
+        } catch (NumberFormatException exc) {
+            throw new IllegalArgumentException("Geef de leeftijd in getal vorm");
+        }
     }
 }

@@ -20,14 +20,16 @@
 
 <h1>Voeg een student toe</h1>
 <form action="StudentInfo?command=voegtoe" method="post" novalidate>
-    <c:if test="${not empty nietok}">
-        <p id="message">${nietok}</p>
+    <c:if test="${not empty errors}">
+        <c:forEach var="error" items="${errors}">
+            <h2 id="message">${error}</h2>
+        </c:forEach>
     </c:if>
 
-    <label for="naam">Naam:<input type="text" name="naam" id="naam" placeholder="Naam..."></label>
-    <label for="voornaam">Voornaam:<input type="text" name="vnaam" id="voornaam" placeholder="Voornaam..."></label>
-    <label for="leeftijd">Leeftijd:<input type="number" name="leeftijd" id="leeftijd" placeholder="Leeftijd..."></label>
-    <label for="studierichting">Studierichting:<input type="text" name="studierichting" id="studierichting" placeholder="Studierichting..."></label>
+    <label for="naam">Naam:<input type="text" name="naam" id="naam" placeholder="Naam..." value="${OldName}"></label>
+    <label for="voornaam">Voornaam:<input type="text" name="vnaam" id="voornaam" placeholder="Voornaam..." value="${OldVoorname}"></label>
+    <label for="leeftijd">Leeftijd:<input type="number" name="leeftijd" id="leeftijd" placeholder="Leeftijd..." value="${OldAge}"></label>
+    <label for="studierichting">Studierichting:<input type="text" name="studierichting" id="studierichting" placeholder="Studierichting..." value="${OldStudierichting}"></label>
     <input type="submit" id="bewaar">
 </form>
 

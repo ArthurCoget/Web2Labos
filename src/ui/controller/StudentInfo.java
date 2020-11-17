@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet("/StudentInfo")
 public class StudentInfo extends HttpServlet {
 
     private final StudentDB studentDB = new StudentDB();
 
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -33,6 +33,7 @@ public class StudentInfo extends HttpServlet {
         if (command == null) {
             command = "";
         }
+
         switch (command) {
             case "Zoeken":
                 destination = zoek(request, response);
@@ -60,7 +61,7 @@ public class StudentInfo extends HttpServlet {
             Student student = studentDB.vindStudent(request.getParameter("naam"), request.getParameter("voornaam"));
             studentDB.verwijderStudent(student);
             return overview(request, response);
-        }else {
+        } else {
             return "index.jsp";
         }
 
@@ -68,19 +69,26 @@ public class StudentInfo extends HttpServlet {
 
     private String voegtoe(HttpServletRequest request, HttpServletResponse response) {
 
-        String naamFromParameter = request.getParameter("naam");
-        String vnaamFromParameter = request.getParameter("vnaam");
-        String leeftijdFromParameter = request.getParameter("leeftijd");
-        String studieRichtingFromParameter = request.getParameter("studierichting");
+        Student student = new Student();
 
-        if (naamFromParameter.trim().isEmpty() || vnaamFromParameter.trim().isEmpty() || leeftijdFromParameter.trim().isEmpty() || studieRichtingFromParameter.trim().isEmpty()){
-            request.setAttribute("nietok", "U vulde niet alle velden in");
-            return "studentForm.jsp?command=voegtoe";
-        }else {
-            studentDB.voegStudentToe(new Student(naamFromParameter, vnaamFromParameter, studieRichtingFromParameter, Integer.parseInt(leeftijdFromParameter)));
-            request.setAttribute("database", studentDB.getStudentslijst());
-            return overview(request, response);
+        ArrayList<String> errors = new ArrayList<String>();
+
+        setNaam(student, request, errors);
+        setVoornaam(student, request, errors);
+        setLeeftijd(student, request, errors);
+        setStudieRichting(student, request, errors);
+
+        if (errors.size() == 0) {
+            try {
+                studentDB.voegStudentToe(student);
+                request.setAttribute("database", studentDB.getStudentslijst());
+                return overview(request, response);
+            } catch (IllegalArgumentException exc) {
+                errors.add(exc.getMessage());
+            }
         }
+        request.setAttribute("errors", errors);
+        return "studentForm.jsp?command=voegtoe";
     }
 
     private String overview(HttpServletRequest request, HttpServletResponse response) {
@@ -98,7 +106,7 @@ public class StudentInfo extends HttpServlet {
         }
         if (studentDB.vindStudent(naamFromParameter, voornaamFromParameter) == null) {
             return "nietGevonden.jsp";
-        }else {
+        } else {
 
             Student student = studentDB.vindStudent(naamFromParameter, voornaamFromParameter);
 
@@ -109,5 +117,57 @@ public class StudentInfo extends HttpServlet {
 
             return "gevonden.jsp";
         }
+    }
+
+    private void setNaam(Student student, HttpServletRequest request, ArrayList<String> errors) {
+
+        String naam = request.getParameter("naam");
+
+        try {
+            student.setNaam(naam);
+            request.setAttribute("OldName", naam);
+        } catch (IllegalArgumentException exception) {
+            errors.add(exception.getMessage());
+        }
+
+    }
+
+    private void setVoornaam(Student student, HttpServletRequest request, ArrayList<String> errors) {
+
+        String naam = request.getParameter("vnaam");
+
+        try {
+            student.setVoornaam(naam);
+            request.setAttribute("OldVoorname", naam);
+        } catch (IllegalArgumentException exception) {
+            errors.add(exception.getMessage());
+        }
+
+    }
+
+    private void setLeeftijd(Student student, HttpServletRequest request, ArrayList<String> errors) {
+
+        String naam = request.getParameter("leeftijd");
+
+        try {
+            student.setLeeftijd(naam);
+            request.setAttribute("OldAge", naam);
+        } catch (IllegalArgumentException exception) {
+            errors.add(exception.getMessage());
+        }
+
+    }
+
+    private void setStudieRichting(Student student, HttpServletRequest request, ArrayList<String> errors) {
+
+        String naam = request.getParameter("studierichting");
+
+        try {
+            student.setStudierichting(naam);
+            request.setAttribute("OldStudierichting", naam);
+        } catch (IllegalArgumentException exception) {
+            errors.add(exception.getMessage());
+        }
+
     }
 }

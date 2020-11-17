@@ -13,6 +13,6 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<p id="boodschap">Je vroeg naar volgende gegevens: ${Naam} ${Voornaam} (${Leeftijd} jaar): ${Studierichting}.</p>
+<p id="boodschap">Je vroeg naar volgende gegevens: ${Naam} ${Voornaam} (${Leeftijd} jaar): ${Studierichting}</p>
 </body>
 </html>
