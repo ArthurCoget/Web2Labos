@@ -13,10 +13,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp">
-    <jsp:param name="search" value="currentPage"/>
-    <jsp:param name="overview" value=""/>
-    <jsp:param name="home" value=""/>
-    <jsp:param name="form" value=""/>
+    <jsp:param name="title" value="search"/>
 </jsp:include>
 <p>Geef hier de voornaam en de naam van de gezochte student:</p>
 <form action="StudentInfo" method="get">

@@ -16,10 +16,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp">
-  <jsp:param name="home" value="currentPage"/>
-  <jsp:param name="overview" value=""/>
-  <jsp:param name="search" value=""/>
-  <jsp:param name="form" value=""/>
+  <jsp:param name="title" value="home"/>
 </jsp:include>
 <p>Op deze site ga je studenten kunnen opzoeken</p>
 </body>
